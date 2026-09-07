@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 chcp 65001 >nul
 title Εργαλειο Αναζητησης Ανταλλακτικων
 color 0B

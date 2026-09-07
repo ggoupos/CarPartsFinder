@@ -49,7 +49,7 @@ enableEnglishKeyboardMapper(modelInput);
 
 // Paste the ID Chrome showed you at chrome://extensions after loading the
 // extension unpacked. It changes if you remove and re-add the extension.
-const PARTS_EXTENSION_ID = 'eliffeiflppiafoaffjldknmmdlbamgf';
+const PARTS_EXTENSION_ID = 'fleenbbdejbkedpgflpibipcdaamicde';
 const EXTENSION_SITE_KEYS = ['autospark', 'hatziligos', 'elkar', 'car_gr_exact', 'car_gr_whole', 'intercars'];
 function searchViaExtension(query) {
   return new Promise((resolve) => {

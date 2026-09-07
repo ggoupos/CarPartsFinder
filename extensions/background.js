@@ -149,7 +149,7 @@ async function scrapeSite(siteKey, query) {
 chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
   if (!message || message.type !== 'searchSites') return false;
 
-  const allowedOrigins = ['http://localhost:3000'];
+const allowedOrigins = ['http://localhost:3000', 'http://192.168.1.50:3000'];
   if (!sender.origin || !allowedOrigins.includes(sender.origin)) {
     sendResponse({ error: 'Origin not allowed' });
     return false;

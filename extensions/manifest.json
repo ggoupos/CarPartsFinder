@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Parts Search — B2B Bridge",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3zwSWxZKEUEEvkoyNyM+jw01bMovibIb7oEw13/nj2cvalsaT6bwaDBArsDRuhvMZv/FYD/IBLft6xwoSuptbBNnk5F+yjBpYUQ/FzNnRsFt/mXg+SMd2GWuxFXlM5ckjKS0FZY0o3WitEWh3se0UOe4cm/f0AEShhp5CL+PgLwohKxn6UfuuyUA3regIab8aWA7RheuNswi85v9H3PypErdjOzaXq6M3VbxXIuIt/y60er81N/iPNpeUfm9Y0XL42WPemH6942TwN34u5VLGoeVsycxDSfmMwnSTJawvBTJhVKkKcLrR2FHmGUX0FdjgCaS/DTJrGmF7uSwKZpsawIDAQAB",
+  "version": "1.0.0",
+  "description": "Runs part searches on B2B sites using your already-logged-in browser session, and returns results to the Parts Search app.",
+  "permissions": [
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://autospark.shop/*",
+    "https://hatziligos.com.gr/*",
+    "*://*.elkar.gr/*",
+    "*://*.car.gr/*",
+    "*://*.intercars.eu/*",
+    "https://*.supabase.co/*" 
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "externally_connectable": {
+    "matches": [
+      "http://localhost:3000/*"
+    ]
+  }
+}

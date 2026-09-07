@@ -1,0 +1,476 @@
+* { box-sizing: border-box; }
+
+:root {
+  --primary: #146ef5;
+  --primary-dark: #0b57d0;
+  --primary-light: #eaf2ff;
+  --text: #172033;
+  --text-soft: #536176;
+  --border: #e3e8ef;
+  --border-light: #edf1f5;
+  --background: #f5f7fa;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+  --success: #159570;
+  --warning: #d99700;
+  --danger: #dc4c64;
+  --shadow-sm: 0 2px 8px rgba(23, 32, 51, 0.05);
+  --shadow-md: 0 10px 30px rgba(23, 32, 51, 0.08);
+  --radius-lg: 16px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: radial-gradient(circle at 50% -10%, rgba(20, 110, 245, 0.08), transparent 35%), var(--background);
+  color: var(--text);
+  line-height: 1.5;
+  padding: 42px 20px 60px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { width: 100%; max-width: 1050px; margin: 0 auto; }
+
+.page-header { text-align: center; margin-bottom: 34px; }
+.page-header h1 { margin: 0 0 8px; color: var(--text); font-size: clamp(28px, 4vw, 38px); font-weight: 750; letter-spacing: -0.7px; }
+.page-header p { max-width: 600px; margin: 0 auto; color: var(--text-soft); font-size: 16px; }
+.page-header::after { content: ""; display: block; width: 42px; height: 4px; margin: 17px auto 0; background: var(--primary); border-radius: 99px; }
+
+.search-container {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid rgba(227, 232, 239, 0.9);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.search-container::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), #4d92ff, var(--primary));
+}
+
+.mode-switcher {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 8px;
+  background: var(--surface-soft);
+  border-bottom: 1px solid var(--border-light);
+  gap: 6px;
+}
+
+.mode-btn {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 18px;
+  background: transparent;
+  color: var(--text-soft);
+  border: 0;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mode-btn:hover { color: var(--primary); background: rgba(20, 110, 245, 0.055); }
+.mode-btn.active { color: var(--primary); background: var(--surface); box-shadow: 0 2px 8px rgba(23, 32, 51, 0.07), 0 0 0 1px rgba(20, 110, 245, 0.08); }
+
+form { padding: 30px; }
+.form-group { display: flex; gap: 13px; flex-wrap: wrap; }
+.input-wrapper { position: relative; flex: 1; min-width: 180px; }
+
+input {
+  width: 100%;
+  height: 54px;
+  padding: 0 16px;
+  background: #fff;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  outline: none;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input::placeholder { color: #98a3b3; }
+input:hover { border-color: #c8d0dc; }
+input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(20, 110, 245, 0.10); }
+
+.code-input { height: 62px; padding: 0 18px; font-size: 17px; font-weight: 600; }
+
+.form-actions { display: flex; gap: 10px; margin-top: 20px; }
+
+.clear-btn {
+  flex: 0 0 auto;
+  padding: 13px 18px;
+  border: 1px solid #d8dee7;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #596579;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.clear-btn:hover { background: #f8f9fb; color: #d64545; border-color: #e5bcbc; }
+
+.submit-btn {
+  position: relative;
+  flex: 1;
+  height: 56px;
+  background: var(--primary);
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 5px 14px rgba(20, 110, 245, 0.20);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.submit-btn:hover { background: var(--primary-dark); box-shadow: 0 8px 20px rgba(20, 110, 245, 0.27); }
+.submit-btn:disabled { background: #9dbbea; box-shadow: none; cursor: not-allowed; }
+
+.loader {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  margin: 25px 0;
+  color: var(--text-soft);
+  font-size: 14px;
+  font-weight: 600;
+}
+.loader.visible { display: flex; }
+.spinner { width: 19px; height: 19px; border: 2.5px solid #dce8fb; border-top-color: var(--primary); border-radius: 50%; animation: spin 0.7s linear infinite; }
+
+.status { min-height: 24px; margin: 22px 0 0; text-align: center; color: var(--text-soft); font-size: 14px; font-weight: 500; }
+.status.error { color: var(--danger); }
+
+#resultsContainer { margin-top: 25px; }
+
+/* Το container των tabs */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tabs.is-sticky { 
+  background: rgba(255, 255, 255, 0.96); 
+  box-shadow: 0 8px 20px rgba(23, 32, 51, 0.10); 
+  backdrop-filter: blur(10px); 
+  padding: 10px; 
+  border-radius: 12px;
+}
+
+/* Σχεδιασμός τύπου "Pill" (κουμπάκια) για τα tabs */
+.tab {
+  flex: 1 1 auto;
+  min-width: 130px;
+  padding: 12px 20px;
+  background: var(--surface);
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+  border-radius: 12px; /* Στρογγυλεμένες άκρες */
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 650;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Hover effect */
+.tab:hover { 
+  color: var(--primary); 
+  border-color: var(--primary-light);
+  background: var(--primary-light); 
+}
+
+/* Το ενεργό tab (Γεμάτο χρώμα για να ξεχωρίζει εύκολα) */
+.tab.active { 
+  color: #fff; 
+  background: var(--primary); 
+  border-color: var(--primary); 
+  box-shadow: 0 4px 14px rgba(20, 110, 245, 0.25);
+}
+
+/* Χρωματισμός ειδικά για το εφεδρικό tab του Car.gr */
+.tab.car-gr-tab { 
+  color: var(--warning); 
+  border-color: #f3df9f; 
+}
+.tab.car-gr-tab:hover {
+  background: #fffdf5;
+}
+.tab.car-gr-tab.active {
+  color: #29220d;
+  background: #f0b400;
+  border-color: #f0b400;
+  box-shadow: 0 4px 14px rgba(217, 151, 0, 0.25);
+}
+
+/* Το περιεχόμενο του κάθε tab */
+.tab-content { 
+  display: none; 
+  background: var(--surface); 
+  border: 1px solid var(--border); 
+  border-radius: 12px; /* Πλήρες border-radius γύρω-γύρω */
+  overflow: hidden; 
+  box-shadow: var(--shadow-sm);
+}
+
+.tab-content.active { 
+  display: block; 
+}
+
+.table-wrapper { width: 100%; overflow-x: auto; }
+table { width: 100%; min-width: 650px; border-collapse: collapse; }
+th, td { padding: 15px 16px; border-bottom: 1px solid var(--border-light); text-align: left; vertical-align: middle; }
+th { background: #f8fafc; color: #657185; font-size: 12px; font-weight: 750; text-transform: uppercase; }
+td { color: var(--text); font-size: 14px; }
+tbody tr:hover { background: #f8fbff; }
+
+.product-image, .no-image { width: 76px; height: 76px; }
+.product-image { object-fit: contain; padding: 5px; background: #fff; border: 1px solid var(--border); border-radius: 9px; }
+.no-image { display: flex; align-items: center; justify-content: center; background: #f3f5f8; border: 1px solid var(--border); border-radius: 9px; color: #9aa5b4; font-size: 11px; }
+
+.product-link { color: var(--text); text-decoration: none; font-size: 15px; font-weight: 650; }
+.product-link:hover { color: var(--primary); }
+.price { color: var(--success); font-size: 17px; font-weight: 750; white-space: nowrap; }
+
+.tab.car-gr-tab { color: var(--warning); }
+.car-gr-container { display: flex; flex-direction: column; gap: 12px; padding: 16px; }
+.car-gr-card { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 20px; background: linear-gradient(135deg, #fffdf5, #fffaf0); border: 1px solid #f3df9f; border-radius: 11px; }
+.car-gr-info strong { display: block; margin-bottom: 4px; color: #966d00; font-size: 16px; font-weight: 700; }
+.car-gr-info span { color: var(--text-soft); font-size: 14px; }
+.car-gr-btn { flex-shrink: 0; padding: 11px 17px; background: #f0b400; color: #29220d; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 700; }
+
+.empty-state { margin-top: 24px; padding: 55px 25px; background: var(--surface); border: 1px dashed #cfd7e2; border-radius: 12px; color: var(--text-soft); text-align: center; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Premium Modal */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center;
+  z-index: 1000; opacity: 0; transition: opacity 0.3s ease;
+}
+.modal-overlay.visible { display: flex; opacity: 1; }
+.modal-content {
+  background: var(--surface);
+  padding: 35px 30px; border-radius: 20px;
+  width: 90%; max-width: 420px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  text-align: center; transform: translateY(20px); transition: transform 0.3s ease;
+}
+.modal-overlay.visible .modal-content { transform: translateY(0); }
+.modal-icon { font-size: 2.5rem; margin-bottom: 10px; }
+.modal-content h2 { margin: 0 0 10px; color: var(--text-main); font-weight: 700; }
+.modal-content p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
+.modal-error { color: #dc2626; font-size: 0.85rem; margin-top: 12px; min-height: 20px; font-weight: 500; }
+
+/* Styling για το Step 2 (Επιβεβαίωση) */
+.confirmation-box {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 15px;
+  text-align: left;
+}
+.confirm-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #cbd5e1;
+}
+.confirm-row:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.confirm-label {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.confirm-value {
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Σταθερό Footer στο κάτω μέρος — premium φινίρισμα, ίδια γλώσσα με το status badge */
+.app-footer {
+  margin-top: 40px;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.app-footer .footer-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid #312e81;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
+}
+
+.app-footer .footer-name {
+  font-weight: 700;
+  color: #fde68a;
+  letter-spacing: 0.2px;
+}
+
+.app-footer .footer-divider {
+  width: 1px;
+  height: 16px;
+  background: #334155;
+}
+
+.app-footer .footer-label {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.app-footer .footer-link {
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.app-footer .footer-link:hover {
+  color: #fbbf24;
+}
+
+@media (max-width: 480px) {
+  .app-footer .footer-content {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 12px;
+    border-radius: 20px;
+    text-align: center;
+  }
+  .app-footer .footer-divider {
+    display: none;
+  }
+}
+
+/* Μπάρα με το badge κατάστασης συνδρομής, στη ροή της σελίδας (όχι sticky) — ευθυγραμμισμένη δεξιά όπως το .container */
+.top-header-bar {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 1050px;
+  margin: 16px auto 0 auto;
+  box-sizing: border-box;
+}
+
+.top-header-bar:empty {
+  margin: 0;
+}
+
+/* Badge κατάστασης συνδρομής */
+.header-badge {
+  width: 220px;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+}
+
+.badge-status .badge-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge-status .status-text {
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+/* Trial: ήπιο, ενημερωτικό στυλ — σκόπιμα πιο "απλό" από το Premium */
+.badge-trial {
+  border-left: 3px solid #0284c7;
+  background: linear-gradient(135deg, #f0f9ff, #ffffff);
+}
+
+.badge-trial .badge-name { color: #0c4a6e; }
+.badge-trial .status-text { color: #0284c7; }
+
+/* Premium: σκούρο, "πλούσιο" στυλ με χρυσή λεπτομέρεια — να ξεχωρίζει αμέσως */
+.badge-premium {
+  border: 1px solid #312e81;
+  border-left: 3px solid #fbbf24;
+  background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.badge-premium::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.08) 50%, transparent 65%);
+  pointer-events: none;
+}
+
+.badge-premium .badge-name { color: #fde68a; }
+.badge-premium .status-text { color: #c7d2fe; }
+
+/* Expired: κόκκινη προειδοποίηση */
+.badge-expired {
+  border-left: 3px solid #dc2626;
+  background: linear-gradient(135deg, #fef2f2, #ffffff);
+}
+
+.badge-expired .badge-name { color: #7f1d1d; }
+
+.badge-status .status-text.expiring {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+.badge-premium .status-text.expiring { color: #fca5a5; }
+
+/* Responsive για μικρές οθόνες: το badge κεντράρεται αντί να κολλάει δεξιά */
+@media (max-width: 700px) {
+  .top-header-bar {
+    justify-content: center;
+    max-width: 340px;
+    margin: 12px auto 0 auto;
+  }
+}

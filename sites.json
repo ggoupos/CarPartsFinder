@@ -1,0 +1,52 @@
+{
+  "saveltrade": {
+    "name": "SavelTrade",
+    "baseUrl": "https://saveltrade.gr",
+    "searchPath": "/index.php?route=product/search&search={q}",
+    "usePlusForSpaces": false,
+    "cardSelectors": ".product-layout, .product-thumb, td.productListing, .productListing, .product-item, .item, .product-wrapper, .product-box, .col-product, #content table tbody tr, .views-row",
+    "titleSelectors": "h4 a, h2 a, h3 a, .name a, .caption a, .product-title a, .product-name a, td a, .views-field-title a",
+    "priceSelectors": ".price-new, .price, .listPrice, p.price, .product-price, span.price, .special-price, td",
+    "imageSelectors": ".image img, .imageWrapper img, .views-field-uc-product-image img, img.lazy, img"
+  },
+  "unisale": {
+    "name": "Unisale",
+    "baseUrl": "https://www.unisale.gr",
+    "searchPath": "/index.php?route=product/search&keyword={q}&category_id=0&model=1",
+    "usePlusForSpaces": false,
+    "cardSelectors": ".product-layout, .product-thumb, td.productListing, .productListing, .product-item, .item, .product-wrapper, .product-box, .col-product, #content table tbody tr, .views-row",
+    "titleSelectors": "h4 a, h2 a, h3 a, .name a, .caption a, .product-title a, .product-name a, td a, .views-field-title a",
+    "priceSelector": ".listPrice",
+    "imageSelectors": ".image img, .imageWrapper img, .views-field-uc-product-image img, img.lazy, img"
+  },
+  "electriclife": {
+    "name": "ElectricLife",
+    "baseUrl": "https://www.electriclife.gr",
+    "searchPath": "/index.php?route=product/search&search={q}&description=true",
+    "usePlusForSpaces": false,
+    "cardSelectors": ".product-layout, .product-thumb, td.productListing, .productListing, .product-item, .item, .product-wrapper, .product-box, .col-product, #content table tbody tr, .views-row",
+    "titleSelectors": "h4 a, h2 a, h3 a, .name a, .caption a, .product-title a, .product-name a, td a, .views-field-title a",
+    "priceSelectors": ".price-new, .price, .listPrice, p.price, .product-price, span.price, .special-price, td",
+    "imageSelectors": ".image img, .imageWrapper img, .views-field-uc-product-image img, img.lazy, img"
+  },
+  "behogroup": {
+    "name": "BehoGroup",
+    "baseUrl": "https://www.behogroup.com.gr",
+    "searchPath": "/product/search?search={q}&description=true",
+    "usePlusForSpaces": true,
+    "cardSelectors": ".product-layout, .product-thumb, td.productListing, .productListing, .product-item, .item, .product-wrapper, .product-box, .col-product, #content table tbody tr, .views-row",
+    "titleSelectors": "h4 a, h2 a, h3 a, .name a, .caption a, .product-title a, .product-name a, td a, .views-field-title a",
+    "priceSelectors": ".price-new, .price, .listPrice, p.price, .product-price, span.price, .special-price, td",
+    "imageSelectors": ".image img, .imageWrapper img, .views-field-uc-product-image img, img.lazy, img"
+  },
+  "starteg": {
+    "name": "Starteg",
+    "baseUrl": "https://starteg.gr",
+    "searchPath": "/searchprod?prod={q}",
+    "usePlusForSpaces": true,
+    "cardSelectors": ".product-layout, .product-thumb, td.productListing, .productListing, .product-item, .item, .product-wrapper, .product-box, .col-product, #content table tbody tr, .views-row",
+    "titleSelectors": "h4 a, h2 a, h3 a, .name a, .caption a, .product-title a, .product-name a, td a, .views-field-title a",
+    "priceSelectors": ".price-new, .price, .listPrice, p.price, .product-price, span.price, .special-price, td",
+    "imageSelectors": ".image img, .imageWrapper img, .views-field-uc-product-image img, img.lazy, img"
+  }
+}

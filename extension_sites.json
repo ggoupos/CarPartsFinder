@@ -1,0 +1,52 @@
+{
+  "autospark": {
+    "name": "Autospark",
+    "baseUrl": "https://autospark.shop",
+    "searchPath": "/index.php?route=product/search&search={q}&description=true",
+    "cardSelectors": ".product-layout, .product-thumb, .product-item",
+    "titleSelectors": "h4 a, h2 a, .name a, .caption a, .product-title a",
+    "priceSelectors": ".price-new, .price, span.price, .special-price"
+  },
+  "hatziligos": {
+    "name": "Hatziligos",
+    "baseUrl": "https://hatziligos.com.gr",
+    "searchPath": "/?s={q}&post_type=product",
+    "cardSelectors": ".wd-product, .single-product-page",
+    "titleSelectors": "h3.wd-entities-title a, .wd-entities-title a, h1.product_title, .product_title",
+    "priceSelectors": ".price .amount, .woocommerce-Price-amount, .wholesale_price_container ins .amount"
+  },
+  "elkar": {
+    "name": "Elkar",
+    "baseUrl": "https://www.elkar.gr",
+    "searchPath": "/index.php?route=product/search&search={q}",
+    "cardSelectors": ".product-layout",
+    "titleSelectors": "h4 a",
+    "priceSelectors": ".price span, .wholesaleprice span",
+    "delay": 4500
+  },
+  "intercars": {
+    "name": "Inter Cars",
+    "baseUrl": "https://gr.e-cat.intercars.eu",
+    "searchPath": "/el/Πλήρης-προσφορά/c/tecdoc?q={q}%3Adefault&initialSearch=true",
+    "cardSelectors": "div[data-clk-listing-standard-item=\"true\"]",
+    "titleSelectors": "a[data-testid=\"productIndexLink\"], a.product-link",
+    "priceSelectors": "div[data-testid=\"wholesalePrice-new\"]",
+    "delay": 3500
+  },
+  "car_gr_exact": {
+    "name": "car.gr (Ανταλλακτικό)",
+    "baseUrl": "https://www.car.gr",
+    "searchPath": "/parts/search.html/?category=30&category=77&q={q}",
+    "cardSelectors": "a.row-anchor",
+    "titleSelectors": "h3",
+    "priceSelectors": ".tw-text-xl"
+  },
+  "car_gr_whole": {
+    "name": "car.gr (Ολόκληρο Όχημα)",
+    "baseUrl": "https://www.car.gr",
+    "searchPath": "/parts/1694/complete_car.html/?category=30&category=77&category=1694&q={q}",
+    "cardSelectors": "a.row-anchor",
+    "titleSelectors": "h3",
+    "priceSelectors": ".tw-text-xl"
+  }
+}

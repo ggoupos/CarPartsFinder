@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Αναζήτηση Ανταλλακτικών</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="appHeaderBar" class="top-header-bar"></div>
+
+<div class="container">
+
+  <header class="page-header">
+    <h1>Αναζήτηση Ανταλλακτικών</h1>
+    <p>Βρείτε ανταλλακτικά με βάση το όχημα ή τον κωδικό OEM.</p>
+  </header>
+
+  <div class="search-container">
+
+    <!-- Search mode -->
+    <div class="mode-switcher">
+      <button
+        class="mode-btn active"
+        id="btnModeVehicle"
+        type="button">
+        🔍 Αναζήτηση με Όχημα
+      </button>
+
+      <button
+        class="mode-btn"
+        id="btnModeCode"
+        type="button">
+        ⚙️ Αναζήτηση με Κωδικό OEM
+      </button>
+    </div>
+
+    <form id="searchForm">
+
+      <!-- Vehicle search -->
+      <div class="form-group" id="modeVehicleFields">
+
+        <div class="input-wrapper">
+          <input
+            name="make"
+            placeholder="Μάρκα (π.χ. VW)"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+        <div class="input-wrapper">
+          <input
+            name="model"
+            placeholder="Μοντέλο (π.χ. Golf 5)"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+        <div class="input-wrapper">
+          <input
+            name="year"
+            placeholder="Έτος (π.χ. 2008)"
+            inputmode="numeric"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="input-wrapper">
+          <input
+            name="part"
+            placeholder="Ανταλλακτικό (π.χ. φίλτρο)"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+      </div>
+
+      <!-- OEM search -->
+      <div
+        class="form-group"
+        id="modeCodeFields"
+        style="display: none;">
+
+        <div class="input-wrapper">
+          <input
+            class="code-input"
+            name="product_code"
+            placeholder="Πληκτρολογήστε τον Κωδικό OEM (π.χ. 1K0959653C)"
+            autocomplete="off"
+            disabled
+            required
+          />
+        </div>
+
+      </div>
+
+    <div class="form-actions">
+
+    <button
+        type="button"
+        class="clear-btn"
+        id="clearBtn">
+        ✕ Καθαρισμός
+    </button>
+
+    <button
+        type="submit"
+        class="submit-btn"
+        id="submitBtn">
+        🔍 Αναζήτηση
+    </button>
+
+    </div>
+
+
+    </form>
+  </div>
+
+  <!-- Loading -->
+  <div class="loader" id="loader">
+    <span class="spinner"></span>
+    <span>Αναζήτηση σε εξέλιξη...</span>
+  </div>
+
+  <div class="status" id="status"></div>
+
+  <div id="resultsContainer"></div>
+
+</div>
+
+<div id="registrationModal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-icon" style="font-size: 2.2rem; color: #475569;">🔧</div>
+    <h2>Ενεργοποίηση Εργαλείου</h2>
+    <p style="margin-bottom: 25px;">Καταχωρήστε τα στοιχεία του συνεργείου σας για την έναρξη της δοκιμής.</p>
+
+    <!-- Βήμα 1: Εισαγωγή Στοιχείων -->
+    <div id="step1">
+      <div class="input-group">
+        <input type="text" id="garageNameInput" placeholder="Επωνυμία (π.χ. AutoFix Νίκος)" autocomplete="off" />
+      </div>
+      <div class="input-group" style="margin-top: 12px;">
+        <input type="tel" id="garagePhoneInput" placeholder="Τηλέφωνο (π.χ. 2101234567)" autocomplete="off" />
+      </div>
+      <button id="verifyBtn" class="submit-btn" style="width: 100%; margin-top: 20px;">Συνέχεια</button>
+    </div>
+
+    <!-- Βήμα 2: Επιβεβαίωση -->
+    <div id="step2" style="display: none;">
+      <div class="confirmation-box">
+        <div class="confirm-row">
+          <span class="confirm-label">Επωνυμία:</span>
+          <span id="confirmName" class="confirm-value"></span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Τηλέφωνο:</span>
+          <span id="confirmPhone" class="confirm-value"></span>
+        </div>
+      </div>
+      <p style="font-size: 0.9rem; margin: 15px 0; color: #334155; font-weight: 500;">Επιβεβαιώνετε ότι τα παραπάνω στοιχεία είναι σωστά;</p>
+      <div style="display: flex; gap: 10px;">
+        <button id="backBtn" class="clear-btn" style="flex: 1;">Διόρθωση</button>
+        <button id="registerBtn" class="submit-btn" style="flex: 1;">Ενεργοποίηση</button>
+      </div>
+    </div>
+
+    <div id="modalError" class="modal-error"></div>
+  </div>
+</div>
+
+<!-- Modal Λήξης / Απενεργοποίησης -->
+<div id="expirationModal" class="modal-overlay">
+  <div class="modal-content" style="border-top: 4px solid #dc2626;">
+    <div class="modal-icon" style="font-size: 2.8rem; color: #dc2626; margin-bottom: 5px;">🔒</div>
+    <h2 style="color: #1e293b;">Πρόσβαση Κλειδωμένη</h2>
+    <p id="expirationMessage" style="margin-bottom: 20px; font-weight: 500; color: #475569;">
+      Η συνδρομή σας έχει λήξει.
+    </p>
+    
+    <div style="background: #f8fafc; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 10px;">
+      <span style="display:block; font-size: 0.85rem; color: #64748b; margin-bottom: 4px;">
+        Για ανανέωση ή υποστήριξη, καλέστε στο:
+      </span>
+      <strong style="font-size: 1.3rem; color: #0f172a; letter-spacing: 1px;">
+        6939898166 <!-- Βάλε εδώ το τηλέφωνό σου -->
+      </strong>
+    </div>
+  </div>
+</div>
+
+<footer class="app-footer">
+  <div class="footer-content">
+    <span class="footer-name">👤 Γιώργος Γούπος</span>
+    <span class="footer-divider"></span>
+    <span class="footer-label">Υποστήριξη & Ανανεώσεις:</span>
+    <a href="tel:6939898166" class="footer-link">📞 6939898166</a>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

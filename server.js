@@ -116,6 +116,23 @@ function buildQuery({ make, model, part }) {
 app.get('/api/search', checkLicense, async (req, res) => {
   const { make, model, year, part, product_code } = req.query;
 
+  const is_oem = Boolean(product_code);
+  const today = new Date().toISOString().split('T')[0];
+  const rpcUrl = SUPABASE_URL.replace('/licences', '/rpc/log_search');
+
+  // Fire-and-forget: Do not await this so it doesn't slow down the scraper
+  axios.post(rpcUrl, {
+    p_machine_id: hwid,
+    p_date: today,
+    p_is_oem: is_oem
+  }, {
+    headers: { 
+      'apikey': SUPABASE_KEY, 
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json'
+    }
+  }).catch(err => console.error('Failed to log search stats:', err.message));
+
   const testQuery = product_code ? product_code.trim() : buildQuery({ make, model, part });
 
   // --- ΔΙΑΓΝΩΣΤΙΚΟΣ ΕΛΕΓΧΟΣ (HEALTH CHECK) ---
